@@ -1,14 +1,13 @@
 import React from 'react'
 import HomeLayout from '../Layouts/HomeLayout';
 import AboutMain from '../Assets/Images/aboutMainImage.png'
-import apj from '../Assets/Images/QuotesPersonalityImage/apj.png'
-import billGates from '../Assets/Images/QuotesPersonalityImage/billGates.png'
-import einstein from '../Assets/Images/QuotesPersonalityImage/einstein.png'
-import nelsonMandela from '../Assets/Images/QuotesPersonalityImage/nelsonMandela.png'
-import steveJobs from '../Assets/Images/QuotesPersonalityImage/steveJobs.png'
+import { Celebrities } from '../Constant/CelebrityData';
+
 import CarouselSlide from '../Components/CarouselSlide';
 
 function AboutUs() {
+
+    
     return (
         <>
             <HomeLayout>
@@ -42,6 +41,11 @@ function AboutUs() {
                     
 
                     <div className="carousel w-1/2 my-16 m-auto">
+                      
+                      
+                        {Celebrities && Celebrities.map(celebrity => <CarouselSlide {...celebrity} key={celebrity.slideNumber} totalSlides={Celebrities.length}/>)}
+
+                      
                       {/* <div id="slide1" className="carousel-item relative w-full">
                         <div className='flex flex-col  items-center justify-center gap-4 px-[15%]'>
                             <img
@@ -56,8 +60,8 @@ function AboutUs() {
                             </div>
                         </div>
                       </div> */}
-                      <CarouselSlide  img={apj} quote={"“You have to dream before your dreams can come true.”"} name={"APJ Abdul Kalam Azad"} slideNumber={1} totalSlides={5}/>
-                      <div id="slide2" className="carousel-item relative w-full">
+                      {/* <CarouselSlide  img={apj} quote={"“You have to dream before your dreams can come true.”"} name={"APJ Abdul Kalam Azad"} slideNumber={1} totalSlides={5}/>
+                      <div id="slide2" className="carousel-item relative w-full"> */}
                         {/* <div className='flex flex-col  items-center justify-center gap-4 px-[15%]'>
                             <img
                               src={billGates}
@@ -69,9 +73,9 @@ function AboutUs() {
                               <a href="#slide3" className="btn btn-circle">❯</a>
                             </div>
                         </div> */}
-                        <CarouselSlide img={billGates} quote={"“It's fine to celebrate success but it is more important to heed the lessons of failure.”"} name={"Bill Gates"} slideNumber={2} totalSlides={5}/>
+                        {/* <CarouselSlide img={billGates} quote={"“It's fine to celebrate success but it is more important to heed the lessons of failure.”"} name={"Bill Gates"} slideNumber={2} totalSlides={5}/>
                       </div>
-                      <div id="slide3" className="carousel-item relative w-full">
+                      <div id="slide3" className="carousel-item relative w-full"> */}
                         {/* <div className='flex  flex-col items-center justify-center gap-4 px-[15%]'>
                             <img
                               src={einstein}
@@ -83,9 +87,9 @@ function AboutUs() {
                               <a href="#slide4" className="btn btn-circle">❯</a>
                             </div>
                         </div> */}
-                        <CarouselSlide img={einstein} quote={"“Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.”"} name={"Albert Einstein"} slideNumber={3} totalSlides={5}/>
+                        {/* <CarouselSlide img={einstein} quote={"“Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.”"} name={"Albert Einstein"} slideNumber={3} totalSlides={5}/>
                       </div>
-                      <div id="slide4" className="carousel-item relative w-full">
+                      <div id="slide4" className="carousel-item relative w-full"> */}
                         {/* <div className='flex flex-col  items-center justify-center gap-4 px-[15%]'>
                             <img
                               src={nelsonMandela}
@@ -97,9 +101,9 @@ function AboutUs() {
                               <a href="#slide5" className="btn btn-circle">❯</a>
                             </div>
                         </div> */}
-                        <CarouselSlide img={nelsonMandela} quote={"“Do not judge me by my successes, judge me by how many times I fell down and got back up again.”"} name={"Nelson Mandela"} slideNumber={4} totalSlides={5}/>
+                        {/* <CarouselSlide img={nelsonMandela} quote={"“Do not judge me by my successes, judge me by how many times I fell down and got back up again.”"} name={"Nelson Mandela"} slideNumber={4} totalSlides={5}/>
                       </div>
-                      <div id="slide5" className="carousel-item relative w-full">
+                      <div id="slide5" className="carousel-item relative w-full"> */}
                         {/* <div className='flex flex-col items-center justify-center gap-4 px-[15%]'>
                             <img
                               src={steveJobs}
@@ -111,8 +115,8 @@ function AboutUs() {
                               <a href="#slide1" className="btn btn-circle">❯</a>
                             </div>
                         </div> */}
-                        <CarouselSlide img={steveJobs} quote={"“Innovation distinguishes between a leader and a follower.”"} name={"Steve Jobs"} slideNumber={5} totalSlides={5}/>
-                      </div>
+                        {/* <CarouselSlide img={steveJobs} quote={"“Innovation distinguishes between a leader and a follower.”"} name={"Steve Jobs"} slideNumber={5} totalSlides={5}/>
+                      </div> */}
                     </div>
 
                 </div>
