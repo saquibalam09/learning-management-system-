@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AiFillCloseCircle} from 'react-icons/ai';
 
 import Footer from '../Components/Footer'
+import Signup from '../Pages/Signup';
 
 function HomeLayout({children}) {
 
