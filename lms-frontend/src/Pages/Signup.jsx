@@ -102,7 +102,7 @@ function Signup() {
     return (
         <HomeLayout>
             <div className='flex justify-center items-center h-[90vh] w-full'>
-                <form noValidate className='flex flex-col justify-center gap-3 rounded-lg p-4 text-white items-center w-96 shadow-[0_0_10px_black]'>
+                <form noValidate onSubmit={createNewAccount} className='flex flex-col justify-center gap-3 rounded-lg p-4 text-white items-center w-96 shadow-[0_0_10px_black]'>
                     <h1 className='text-center text-2xl font-bold'>
                         Registration Page
                     </h1>
@@ -164,7 +164,7 @@ function Signup() {
                         
 
                     </div>
-                    <button type='submit' onClick={createNewAccount} className='w-1/2 mt-1 bg-yellow-600 font-semibold py-2 hover:bg-yellow-500 text-lg cursor-pointer transition-all ease-in-out duration-200 rounded-md'>
+                    <button type='submit'  className='w-1/2 mt-1 bg-yellow-600 font-semibold py-2 hover:bg-yellow-500 text-lg cursor-pointer transition-all ease-in-out duration-200 rounded-md'>
                         Create account
                     </button>
                     <p className='mt-1'>

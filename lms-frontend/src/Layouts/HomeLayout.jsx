@@ -51,7 +51,7 @@ function HomeLayout({children}) {
             <div className='min-h-[90vh] bottom-0'>
                 <div className='drawer absolute left-0 z-50 w-fit'>
                     <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-                    <div className="drawer-content">
+                    <div className="drawer-content ">
                       {/* Page content here */}
                       <label htmlFor="my-drawer" className="cursor-pointer relative">
                         <FiMenu
@@ -105,7 +105,7 @@ function HomeLayout({children}) {
                             {isLoggedIn && (
                                 <li className='absolute bottom-4 w-[90%]'>
                                 <div className='w-full flex items-center justify-center '>
-                                    <button className='btn-primary bg-transparent hover:bg-blue-500 px-4 py-1 font-semibold rounded-md w-full '>
+                                    <button className='btn-primary bg-transparent hover:bg-blue-500 px-4 py-1 font-semibold rounded-md w-full text'>
                                         <Link to='/user/profile'>Profile</Link>
                                     </button>
                                     <button className='btn-secondary bg-transparent hover:bg-blue-500 px-4 py-1 font-semibold rounded-md w-full'>
