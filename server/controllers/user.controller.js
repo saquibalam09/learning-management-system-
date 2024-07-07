@@ -12,67 +12,75 @@ const cookieOptions = {
 }
 
 const register = async (req, res, next) => {
-    const { fullName, email, password } = req.body;
-
-    if (!fullName || !email || !password) {
-        return next(handleError(res, 'All fields are required', 400));
-    }
-
-    const userExists = await User.findOne({ email });
-
-    if (userExists) {
-        return next(handleError(res, 'Email already exists', 400));
-    }
-
-    const user = await User.create({
-        fullName,
-        email,
-        password,
-        avatar: {
-            public_id: email,
-            secure_url: 'url'
+    try {
+        const { fullName, email, password } = req.body;
+        console.log(fullName);
+    
+        if (!fullName || !email || !password) {
+            return next(handleError(res, 'All fields are required', 400));
         }
-    });
-
-    if (!user) {
-        return next(handleError(res, 'User registration failed, please try again', 400));
-    }
-
-    if (req.file) {
-        try {
-            const result = await cloudinary.v2.uploader.upload(req.file.path, {
-                folder: 'lms',
-                width: 250,
-                height: 250,
-                gravity: 'faces',
-                crop: 'fill',
-            });
-
-            if (result) {
-                user.avatar.public_id = result.public_id;
-                user.avatar.secure_url = result.secure_url;
-
-                // Remove file from server
-                // await fs.rm(uploads/${req.file.filename});
+    
+        const userExists = await User.findOne({ email });
+    
+        if (userExists) {
+            return next(handleError(res, 'Email already exists', 400));
+        }
+    
+        const user = await User.create({
+            fullName,
+            email,
+            password,
+            avatar: {
+                public_id: email,
+                secure_url: 'url'
             }
-        } catch (error) {
-            return next(handleError(res, error?.message, error?.status));
+        });
+    
+        if (!user) {
+            return next(handleError(res, 'User registration failed, please try again', 400));
         }
+    
+        if (req.file) {
+            try {
+                const result = await cloudinary.v2.uploader.upload(req.file.path, {
+                    folder: 'lms',
+                    width: 250,
+                    height: 250,
+                    gravity: 'faces',
+                    crop: 'fill',
+                });
+    
+                if (result) {
+                    user.avatar.public_id = result.public_id;
+                    user.avatar.secure_url = result.secure_url;
+    
+                    // Remove file from server
+                    // await fs.rm(uploads/${req.file.filename});
+                }
+            } catch (error) {
+                return next(handleError(res, error?.message, error?.status));
+            }
+        }
+    
+        await user.save();
+    
+        user.password = undefined;
+        const token = user.generateJWTToken();
+    
+        res.cookie('token', token, cookieOptions);
+    
+        res.status(200).json({
+    
+            success: true,
+            message: 'User registered successfully',
+            user,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false
+        })
     }
-
-    await user.save();
-
-    user.password = undefined;
-    const token = user.generateJWTToken();
-
-    res.cookie('token', token, cookieOptions);
-
-    res.status(200).json({
-
-        success: true,
-        message: 'User registered successfully',
-        user,
-    });
 }
 
 const login = async (req, res, next) => {

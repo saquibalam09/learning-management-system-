@@ -4,6 +4,7 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {toast} from 'react-hot-toast';
+import { createAccount } from '../Redux/Slices/AuthSlice.js';
 
 
 function Signup() {
@@ -40,23 +41,68 @@ function Signup() {
             const fileReader = new FileReader();
             fileReader.readAsDataURL(uploadedImage);
             fileReader.addEventListener('load', function(){
-                console.log(this.result);
+            
                 setPrevImage(this.result);
             })
        }
     }
 
-    function createNewAccount(e){
+    async function createNewAccount(e){
         e.preventDefault();
         if(!signupData.email || !signupData.password || !signupData.fullName || !signupData.avatar){
             toast.error("Please fill all the details");
+            return;
         }
-    }
+
+        // checking name 
+        
+        if(signupData.fullName.length < 5){
+            toast.error("Name should atleast be of 5 character.");
+            return;
+        }
+
+        //email validation 
+        if(!signupData.email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
+            toast.error("Email is not valid.");
+            return;
+        }
+        //checking password validation
+        if(!signupData.password.match(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)){
+            toast.error("Password should be 6-16 character with atleast a number and special chracter.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("fullName", signupData.fullName);
+        formData.append("email", signupData.email);
+        formData.append("password", signupData.password);
+        formData.append("avatar", signupData.avatar);
+
+        // dispatch create account action
+        const response = await dispatch(createAccount(formData));
+
+        if(response?.payload?.success){
+            navigate('/')
+        };
+         
+
+        
+
+        setSignupData({
+            fullName:"",
+            email: "",
+            password: "",
+            avatar: "",
+        });
+
+        setPrevImage("");
+    };
+    
 
     return (
         <HomeLayout>
             <div className='flex justify-center items-center h-[90vh] w-full'>
-                <form className='flex flex-col justify-center gap-3 rounded-lg p-4 text-white items-center w-96 shadow-[0_0_10px_black]'>
+                <form noValidate className='flex flex-col justify-center gap-3 rounded-lg p-4 text-white items-center w-96 shadow-[0_0_10px_black]'>
                     <h1 className='text-center text-2xl font-bold'>
                         Registration Page
                     </h1>
@@ -77,13 +123,13 @@ function Signup() {
                     />
                     
                     <div className='w-3/4 flex flex-col gap-1'>
-                        <label htmlFor='full_name' className='font-semibold'>Full Name</label>
+                        <label htmlFor='fullName' className='font-semibold'>Full Name</label>
                         <input
-                            type='full_name'
+                            type='text'
                             required
-                            name='full_name'
-                            id='full_name'
-                            placeholder='Enter your full_name...'
+                            name='fullName'
+                            id='fullName'
+                            placeholder='Enter your full name...'
                             className='bg-trasparent px-2 py-1 border'
                             onChange={handleUserInput}
                             value={signupData.fullName}
@@ -93,7 +139,7 @@ function Signup() {
                     <div className='w-3/4 flex flex-col gap-1'>
                         <label htmlFor='email' className='font-semibold'>Email</label>
                         <input
-                            type='email'
+                            type='text'
                             required
                             name='email'
                             id='email'
@@ -118,7 +164,7 @@ function Signup() {
                         
 
                     </div>
-                    <button type='submit' className='w-1/2 mt-1 bg-yellow-600 font-semibold py-2 hover:bg-yellow-500 text-lg cursor-pointer transition-all ease-in-out duration-200 rounded-md'>
+                    <button type='submit' onClick={createNewAccount} className='w-1/2 mt-1 bg-yellow-600 font-semibold py-2 hover:bg-yellow-500 text-lg cursor-pointer transition-all ease-in-out duration-200 rounded-md'>
                         Create account
                     </button>
                     <p className='mt-1'>
