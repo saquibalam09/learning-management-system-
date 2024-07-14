@@ -30,6 +30,7 @@ export const getAllCourses = asyncHandler(async (_req, res, next) => {
  */
 export const createCourse = asyncHandler(async (req, res, next) => {
   const { title, description, category, createdBy } = req.body;
+  console.log(title);
 
   if (!title || !description || !category || !createdBy) {
     return next(new AppError('All fields are required', 400));
@@ -49,6 +50,7 @@ export const createCourse = asyncHandler(async (req, res, next) => {
   }
 
   // Run only if user sends a file
+  console.log(req.file.path);
   if (req.file) {
     try {
       const result = await cloudinary.v2.uploader.upload(req.file.path, {

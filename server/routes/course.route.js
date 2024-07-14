@@ -43,8 +43,8 @@ router
   .route('/')
   .get(getAllCourses)
   .post(
-    isLoggedIn,
-    authorizeRoles('ADMIN'),
+    // isLoggedIn,
+    // authorizeRoles('ADMIN'),
     upload.single('thumbnail'),
     createCourse
   )

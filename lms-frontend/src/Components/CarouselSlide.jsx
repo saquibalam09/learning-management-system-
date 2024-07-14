@@ -7,7 +7,7 @@ function CarouselSlide({image, quote, title, slideNumber, totalSlides}) {
                 <img
                   src={image}
                   className="w-40 rounded-full border-2 border-gray-400" />
-                <p className='text-xl text-gray-200'>{quote}</p>
+                <p className='text-x1 text-gray-200'>{quote}</p>
                 <h1 className='text-2xl font-semibold'>{title}</h1>
                 <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                   <a href={`#slide${(slideNumber === 1) ? totalSlides : slideNumber-1}`} className="btn btn-circle">❮</a>
