@@ -1,6 +1,6 @@
 import express from 'express';
 
-import  cors from 'cors';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import userRoutes from './routes/user.route.js';
@@ -25,9 +25,9 @@ app.use(cors({
 app.use(cookieParser());
 app.use(morgan('dev'));
 
-app.use('/ping', function(req, res){
-    res.send('/pong');   
-})
+// app.use('/ping', function(_req, res){
+//     res.send('/pong');   
+// })
 
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/courses', courseRoutes);
@@ -37,7 +37,7 @@ app.use('/api/v1', miscRoutes);
 
 // routes of 3 modules
 
-app.all('*', (req, res)=>{
+app.all('*', (_req, res)=>{
     res.status(404).send('OOPS!! 404 page not found')
 })
 

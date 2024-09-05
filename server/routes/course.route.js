@@ -43,8 +43,8 @@ router
   .route('/')
   .get(getAllCourses)
   .post(
-    // isLoggedIn,
-    // authorizeRoles('ADMIN'),
+    isLoggedIn,
+    authorizeRoles('ADMIN'),
     upload.single('thumbnail'),
     createCourse
   )
@@ -52,13 +52,14 @@ router
 
 router
   .route('/:id')
-  .get(getLecturesByCourseId) // Added authorizeSubscribers to check if user is admin or subscribed if not then forbid the access to the lectures
+  .get(isLoggedIn, authorizeSubscribers, getLecturesByCourseId) // Added authorizeSubscribers to check if user is admin or subscribed if not then forbid the access to the lectures
   .post(
     isLoggedIn,
     authorizeRoles('ADMIN'),
     upload.single('lecture'),
     addLectureToCourseById
   )
-  .put(isLoggedIn, authorizeRoles('ADMIN'), updateCourseById);
+  .put(isLoggedIn, authorizeRoles('ADMIN'), updateCourseById)
+  .delete(isLoggedIn, authorizeRoles('ADMIN'), deleteCourseById);
 
 export default router;

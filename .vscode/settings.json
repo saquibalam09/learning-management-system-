@@ -55,5 +55,9 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false
+  "C_Cpp_Runner.msvcSecureNoWarnings": false,
+  "workbench.preferredDarkColorTheme": "Visual Studio 2017 Dark - C++",
+  "workbench.preferredHighContrastColorTheme": "Visual Studio Dark",
+  "workbench.preferredHighContrastLightColorTheme": "Default Dark Modern",
+  "workbench.colorTheme": "Visual Studio 2017 Dark - C++"
 }

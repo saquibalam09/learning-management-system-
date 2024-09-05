@@ -122,7 +122,8 @@ export const getLecturesByCourseId = asyncHandler(async (req, res, next) => {
 export const addLectureToCourseById = asyncHandler(async (req, res, next) => {
   const { title, description } = req.body;
   const { id } = req.params;
-
+  console.log(description);
+  
   let lectureData = {};
 
   if (!title || !description) {
@@ -194,9 +195,11 @@ export const addLectureToCourseById = asyncHandler(async (req, res, next) => {
  */
 export const removeLectureFromCourse = asyncHandler(async (req, res, next) => {
   // Grabbing the courseId and lectureId from req.query
-  const { courseId, lectureId } = req.query;
+  const courseId = req.query.courseId;
+  const lectureId = req.query.lectureId;
 
-  console.log(courseId);
+  // console.log("cid->",courseId);
+  // console.log("lid->",lectureId);
 
   // Checking if both courseId and lectureId are present
   if (!courseId) {

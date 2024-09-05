@@ -4,7 +4,7 @@ import AppError from "../utils/error.util.js";
 
 
 
-export const getRazorpayApiKey = async (req, res, next) => {
+export const getRazorpayApiKey = async (_req, res, _next) => {
     res.status(200).json({
         success: true,
         message: 'Razorpay API key',

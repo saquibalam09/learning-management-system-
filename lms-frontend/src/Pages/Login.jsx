@@ -38,17 +38,17 @@ function Login() {
 
         // checking name 
         
-        // if(signupData.fullName.length < 5){
+        // if(loginData.fullName.length < 5){
         //     toast.error("Name should atleast be of 5 character.");
         //     return;
         // }
 
-        //email validation 
-        // if(!loginData.email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
-        //     toast.error("Email is not valid.");
-        //     return;
-        // }
-        // //checking password validation
+        // email validation 
+        if(!loginData.email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
+            toast.error("Email is not valid.");
+            return;
+        }
+        //checking password validation
         // if(!loginData.password.match(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)){
         //     toast.error("Password should be 6-16 character with atleast a number and special chracter.");
         //     return;
@@ -117,6 +117,13 @@ function Login() {
                     <p className='mt-1'>
                         Don't have an account ? <Link className='link text-accent rounded-md font-semibold cursor-pointer' to='/signup'>SignUp</Link>
                     </p>
+                    <button className='flex flex-row py-3  px-10 bg-slate-600 rounded-md gap-1 hover:bg-slate-500 transition-all ease-in-out duration-200'>
+                        <img className='w-6' src='https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png'/>
+
+                        <span className=''>
+                        Sign in with Google</span>
+                    </button>
+                    
                 </form>
             </div>
         </HomeLayout>

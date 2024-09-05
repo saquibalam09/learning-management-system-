@@ -1,15 +1,20 @@
 
 import { config } from 'dotenv';
-config();
+
 import app from './app.js';
 import connectionToDB from './config/dbConnection.js';
 import cloudinary from 'cloudinary';
 
 import Razorpay from 'razorpay';
-
+// 10058497405
 
 const PORT = process.env.PORT || 5000;
 
+
+// config();
+config({
+    path: './env'
+});
 
 //cloudinary config
 cloudinary.v2.config({
@@ -28,3 +33,6 @@ app.listen(PORT, ()=>{
     connectionToDB();
     console.log(`App is running at http:${PORT}`);
 })
+
+
+// Get your endpoint online

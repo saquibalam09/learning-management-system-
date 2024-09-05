@@ -10,7 +10,8 @@ router
     .get(
         isLoggedIn,
         getRazorpayApiKey
-    );
+    )
+    
 
 
 router
@@ -28,9 +29,8 @@ router
     );
 
 router
-    .route('/razorpay-key')
-    .post(
-        isLoggedIn,
+    .route('/unsubscribe')
+    .post(isLoggedIn, 
         cancelSubscription
     );
 

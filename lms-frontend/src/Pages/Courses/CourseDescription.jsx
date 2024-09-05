@@ -7,6 +7,7 @@ const CourseDescription = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const { role, data } = useSelector((state) => state.auth);
+  // data.subscription.status='active';
 
   
 

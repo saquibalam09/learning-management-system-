@@ -12,7 +12,7 @@ function CreateCourse() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const location = useLocation();
+    // const location = useLocation();
 
     // for getting the data from location of previous component
 
@@ -29,6 +29,8 @@ function CreateCourse() {
         thumbnail: null,
         previewImage: "",
     });
+
+    
     function handleImageUpload(e){
         e.preventDefault();
         const uploadedImage = e.target.files[0];
@@ -63,8 +65,9 @@ function CreateCourse() {
             toast.error("All fields are mandatory");
             return;
         }
-
-        const response= await dispatch(createNewCourse(userInput));
+        console.log(userInput);
+        
+        const response = await dispatch(createNewCourse(userInput));
 
         if(response?.payload?.success){
             setUserInput({
@@ -75,9 +78,10 @@ function CreateCourse() {
                 thumbnail: null,
                 previewImage: "",
             })
+            navigate('/courses');
         }
 
-        navigate('/courses');
+        
     };
 
     return (
@@ -133,7 +137,7 @@ function CreateCourse() {
                   id="image_uploads"
                   name="image_uploads"
                   accept=".jpg, .jpeg, .png"
-                //   disabled={isDisabled}
+                  // disabled={isDisabled}
                 />
               </div>
 
