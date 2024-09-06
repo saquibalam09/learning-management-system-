@@ -5,14 +5,15 @@ import upload from "../middlewares/multer.middleware.js";
 import { isLoggedIn } from "../middlewares/auth.middleware.js";
 const router = Router();
 
-router.post('/register',upload.single("avatar"), register);
+router.post('/register', upload.single("avatar"), register);
 router.post('/login', login);
 router.post('/logout', logout);
 router.get('/me',isLoggedIn, getProfile);
 router.post('/reset', forgotPassword);
 router.post('/reset/:resetToken', resetPassword);
 router.post('/change-password', isLoggedIn, changePassword);
-router.post('/update', isLoggedIn, upload.single("avatar"), updateUser)
+router.put("/update/:id", upload.single('avatar') , isLoggedIn , updateUser);
+
 
 
 export default router;

@@ -33,6 +33,7 @@ function Signup() {
        e.preventDefault(); 
 
        const uploadedImage = e.target.files[0];
+       
        if(uploadedImage){
             setSignupData({
                 ...signupData,
@@ -170,6 +171,12 @@ function Signup() {
                     <p className='mt-1'>
                         Alreaddy have an account ? <Link className='link text-accent rounded-md font-semibold cursor-pointer' to='/login'>Login</Link>
                     </p>
+                    <button className='flex flex-row py-3  px-10 bg-slate-600 rounded-md gap-1 hover:bg-slate-500 transition-all ease-in-out duration-200'>
+                        <img className='w-6' src='https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png'/>
+
+                        <span className=''>
+                        Sign in with Google</span>
+                    </button>
                 </form>
             </div>
         </HomeLayout>

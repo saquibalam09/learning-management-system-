@@ -42,10 +42,14 @@ const userSchema = new Schema({
     role: {
         type: String,  // Corrected the data type
         enum: ['USER', 'ADMIN'],
-        default: 'USER'
+        default: 'ADMIN'
     },
     forgotPasswordToken: String,
-    forgotPasswordExpiry: Date
+    forgotPasswordExpiry: Date,
+    subscription : {
+        id: String,
+        status : String
+    }
 }, {
     timestamps: true
 });
@@ -59,7 +63,7 @@ userSchema.pre('save', async function(next){
 });
 
 userSchema.methods.generateJWTToken = function () {
-    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    return jwt.sign({id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRY,
     });
 };

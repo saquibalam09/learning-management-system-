@@ -6,7 +6,7 @@ import axiosInstance from '../../Helpers/axiosInstance.js'
 const initialState = {
     isLoggedIn : localStorage.getItem('isLoggedIn') || false,
     role: localStorage.getItem('role') || "",
-    data: JSON.parse(localStorage.getItem('data ')) || {},
+    data: localStorage.getItem('data') != undefined ? JSON.parse(localStorage.getItem('data')) : {},
 
 }
 
@@ -14,7 +14,7 @@ const initialState = {
 //function for signup
 export const createAccount = createAsyncThunk('/auth/signup', async (data) => {
     try {
-        let res = axiosInstance.post('user/register', data);
+        let res = axiosInstance.post('/user/register', data);
         toast.promise(res, {
             loading: "Wait! creating your account.",
             success: (data)=>{
@@ -54,8 +54,70 @@ export const login = createAsyncThunk("auth/login", async (data) => {
     }
 });
 
+export const updateProfile = createAsyncThunk(
+  "/user/update/profile",
+  async (data) => {
+    try {
+      
+      
+      let res = axiosInstance.put(`/user/update/${data[0]}`, data[1]);
+      
+      
+      
+      toast.promise(res, {
+        loading: "Updating...",
+        success: (data) => {
+          return data?.data?.message;
+        },
+        error: "Failed to update profile",
+      });
+      // getting response resolved here
+      // res = await res;
+      // return res.data;
+
+      return (await res).data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
+export const getUserData = createAsyncThunk("/user/details", async () => {
+  try {
+      
+    const res = axiosInstance.get('/user/me');
+    // getting response resolved here
+    return (await res).data;
+    
+  } catch (error) {
+    toast.error(error?.message);
+  }
+});
+
+
+export const updatePassword = createAsyncThunk("/update/password", async (data) => {
+  try {
+      
+    const res = axiosInstance.post('/user/change-password', data);
+    // getting response resolved here
+
+
+    toast.promise(res, {
+      loading: "Updating...",
+      success: (data) => {
+        return data?.data?.message;
+      },
+      error: "Failed to update profile",
+    });
+    return (await res).data;
+    
+  } catch (error) {
+    toast.error(error?.message);
+  }
+});
+
 // function to handle logout
-export const logout = createAsyncThunk("auth/logout", async () => {
+export const logout = createAsyncThunk("/auth/logout", async () => {
   try {
     let res = axiosInstance.post("/user/logout");
 
@@ -97,10 +159,21 @@ const authSlice = createSlice({
             state.isLoggedIn = false;
             state.data = {};
           })
+
+          .addCase(getUserData.fulfilled, (state, action)=> {
+            if(!action?.payload?.user) return;
+            localStorage.setItem("data", JSON.stringify(action?.payload?.user));
+            localStorage.setItem("isLoggedIn", true);
+            localStorage.setItem("role", action?.payload?.user?.role);
+            state.isLoggedIn = true;
+            state.data = action?.payload?.user;
+            state.role = action?.payload?.user?.role;
+          })
     },
 });
 
 
 // export const {} = authSlice.actions;
+
 
 export default authSlice.reducer;

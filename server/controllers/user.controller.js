@@ -14,7 +14,7 @@ const cookieOptions = {
 const register = async (req, res, next) => {
     try {
         const { fullName, email, password } = req.body;
-        console.log(fullName);
+        
     
         if (!fullName || !email || !password) {
             return next(handleError(res, 'All fields are required', 400));
@@ -41,6 +41,7 @@ const register = async (req, res, next) => {
         }
     
         if (req.file) {
+            
             try {
                 const result = await cloudinary.v2.uploader.upload(req.file.path, {
                     folder: 'lms',
@@ -55,7 +56,7 @@ const register = async (req, res, next) => {
                     user.avatar.secure_url = result.secure_url;
     
                     // Remove file from server
-                    // await fs.rm(uploads/${req.file.filename});
+                    fs.rm(`uploads/${req.file.filename}`);
                 }
             } catch (error) {
                 return next(handleError(res, error?.message, error?.status));
@@ -76,7 +77,7 @@ const register = async (req, res, next) => {
             user,
         });
     } catch (error) {
-        console.log(error);
+        
         res.status(500).json({
             success: false
         })
@@ -86,7 +87,7 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
-        console.log(email, password);
+        // console.log(email, password);
 
         if (!email || !password) {
             return next(new AppError('All fields are required', 400));
@@ -112,7 +113,7 @@ const login = async (req, res, next) => {
     }
 }
 
-const logout = (req, res) => {
+const logout = (_req, res) => {
     res.cookie('token', null, {
         secure: true,
         maxAge: 0,
@@ -252,7 +253,9 @@ const changePassword = async (req, res, next)=>{
 
 }
 const updateUser = async (req, res, next)=>{
+    
     const {fullName}= req.body;
+    // console.log("Saquib ->",fullName);
     const {id}=req.params;
 
     const user = await User.findById(id);
@@ -263,11 +266,12 @@ const updateUser = async (req, res, next)=>{
         )
     }
 
-    if(req.fullName){
+    if(fullName){
         user.fullName = fullName;
     }
-
+    // console.log(req.file);
     if(req.file){
+        
         await cloudinary.v2.uploader.destroy(user.avatar.public_id);
 
         try {
@@ -284,10 +288,12 @@ const updateUser = async (req, res, next)=>{
                 user.avatar.secure_url = result.secure_url;
 
                 // Remove file from server
-                // await fs.rm(uploads/${req.file.filename});
+                // console.log(req.file.filename);
+                
+                fs.rm(`uploads/${req.file.filename}`);
             }
         } catch (error) {
-            return next(handleError(res, error?.message, error?.status));
+            return next(new AppError('Failed to upload profile details', 400));
         }
     }
     await user.save();
@@ -299,9 +305,6 @@ const updateUser = async (req, res, next)=>{
         message: 'User updated successfully',
         user
     })
-
-
-
 }
 
 export {
