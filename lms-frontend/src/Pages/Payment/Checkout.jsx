@@ -3,27 +3,30 @@ import React, { useEffect } from "react";
 import { BiRupee } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getPaymentRecord, purchaseCourseBundle, verifyUserPayment } from "../../Redux/Slices/RazorpaySlice.js";
+import {
+  getPaymentRecord,
+  getRazorPayKey,
+  purchaseCourseBundle,
+  verifyUserPayment,
+} from "../../Redux/Slices/RazorpaySlice.js";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import HomeLayout from "../../Layouts/HomeLayout.jsx";
 
 const Checkout = () => {
-
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const razorPayKey = useSelector(
-    (state) => state.razorpay.key
-  );
+  const razorPayKey = useSelector((state) => state.razorpay.key);
 
   const subscription_id = useSelector(
     (state) => state.razorpay.subscription_id
   );
 
   const userData = useSelector((state) => state?.auth?.data);
-  const { isPaymentVerified } = useSelector((state) => state?.razorpay?.isPaymentVerified);
+  const { isPaymentVerified } = useSelector(
+    (state) => state?.razorpay?.isPaymentVerified
+  );
 
   // for storing the payment details after successfull transaction
   const paymentDetails = {
@@ -48,7 +51,8 @@ const Checkout = () => {
       description: "Yearly Subscription",
       handler: async function (response) {
         paymentDetails.razorpay_payment_id = response.razorpay_payment_id;
-        paymentDetails.razorpay_subscription_id = response.razorpay_subscription_id;
+        paymentDetails.razorpay_subscription_id =
+          response.razorpay_subscription_id;
         paymentDetails.razorpay_signature = response.razorpay_signature;
 
         // displaying the success message
@@ -58,7 +62,7 @@ const Checkout = () => {
         const res = await dispatch(verifyUserPayment(paymentDetails));
 
         // redirecting the user according to the verification status
-          res?.payload?.success
+        res?.payload?.success
           ? navigate("/checkout/success")
           : navigate("/checkout/fail");
       },
@@ -76,7 +80,7 @@ const Checkout = () => {
 
   useEffect(() => {
     (async () => {
-      await dispatch(getRazorPayId());
+      await dispatch(getRazorPayKey());
       await dispatch(purchaseCourseBundle());
     })();
   }, []);
