@@ -5,14 +5,6 @@ import connectionToDB from "./config/dbConnection.js";
 import cloudinary from "cloudinary";
 
 import Razorpay from "razorpay";
-const __dirname = path.resolve();
-
-app.use(app.static(path.join(__dirname, "../lms-frontend/build")));
-
-// Handle any requests that don't match the API routes
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../lms-frontend/build", "index.html"));
-});
 
 const PORT = process.env.PORT || 5000;
 
