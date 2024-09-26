@@ -183,6 +183,8 @@ const login = async (req, res, next) => {
     }
 
     const token = user.generateJWTToken();
+    // console.log(token);
+
     user.password = undefined;
     res.cookie("token", token, cookieOptions);
 

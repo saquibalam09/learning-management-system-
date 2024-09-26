@@ -1,35 +1,36 @@
-import React, { useEffect } from 'react'
-import HomeLayout from '../../Layouts/HomeLayout';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { getUserData } from '../../Redux/Slices/AuthSlice';
-import toast from 'react-hot-toast';
-import { cancelCourseBundle } from '../../Redux/Slices/RazorpaySlice';
+import React, { useEffect } from "react";
+import HomeLayout from "../../Layouts/HomeLayout";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { getUserData } from "../../Redux/Slices/AuthSlice";
+import toast from "react-hot-toast";
+import { cancelCourseBundle } from "../../Redux/Slices/RazorpaySlice";
 
 function Profile() {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const userData = useSelector((state) => state?.auth?.data);
+  if (!userData) {
+    dispatch(getUserData());
+  }
 
-    const userData = useSelector((state) => state?.auth?.data);
-    
-     // function to handle the cancel subscription of course
-    const handleCourseCancelSubscription = async () => {
-        toast.info("Initiating cancellation")
-        await dispatch(cancelCourseBundle());
-        await dispatch(getUserData());
-        toast.success("Cancellation completed.!")
-        navigate('/');
-    };
+  // function to handle the cancel subscription of course
+  const handleCourseCancelSubscription = async () => {
+    toast.info("Initiating cancellation");
+    await dispatch(cancelCourseBundle());
+    await dispatch(getUserData());
+    toast.success("Cancellation completed.!");
+    navigate("/");
+  };
 
-    useEffect(() => {
-        // getting user details
-        dispatch(getUserData());
-    }, []);
+  useEffect(() => {
+    // getting user details
+    // dispatch(getUserData());
+  }, []);
 
-
-    return (
+  return (
     <HomeLayout>
       <div className="min-h-[90vh] flex items-center justify-center">
         <div className="my-10 w-auto flex flex-col gap-4 rounded-lg p-4 text-white  shadow-[0_0_10px_black]">
@@ -62,7 +63,7 @@ function Profile() {
               to={
                 // userData?.email === "test@gmail.com"
                 //   ? "/denied"
-                  "/changepassword"
+                "/changepassword"
               }
               className="w-1/2 bg-yellow-600 hover:bg-yellow-700 transition-all ease-in-out duration-300 rounded-sm py-2 font-semibold cursor-pointer text-center"
             >
@@ -73,7 +74,7 @@ function Profile() {
               to={
                 // userData?.email === "test@gmail.com"
                 //   ? "/denied"
-                  "/user/editprofile"
+                "/user/editprofile"
               }
               className="w-1/2 border border-yellow-600 hover:border-yellow-500 transition-all ease-in-out duration-300 rounded-sm py-2 font-semibold cursor-pointer text-center"
             >
@@ -92,7 +93,7 @@ function Profile() {
         </div>
       </div>
     </HomeLayout>
-    )
+  );
 }
 
 export default Profile;

@@ -90,10 +90,10 @@ function HomeLayout({ children }) {
             {!isLoggedIn && (
               <li className="absolute bottom-4 w-[90%]">
                 <div className="w-full flex items-center justify-center">
-                  <button className=" bg-transparent hover:bg-blue-500 px-4 py-1 font-semibold rounded-md w-fit">
+                  <button className="btn btn-primary   px-4 py-1 font-semibold rounded-md w-fit">
                     <Link to="/login">Login</Link>
                   </button>
-                  <button className=" bg-transparent hover:bg-blue-500 px-4 py-1 font-semibold rounded-md w-fit">
+                  <button className="btn btn-secondary    px-4 py-1 font-semibold rounded-md w-fit">
                     <Link to="/signup">SignUp</Link>
                   </button>
                 </div>
@@ -102,10 +102,10 @@ function HomeLayout({ children }) {
             {isLoggedIn && (
               <li className="absolute bottom-4 w-[90%]">
                 <div className="w-full flex items-center justify-center ">
-                  <button className="bg-transparent hover:bg-blue-500 px-4 py-1 font-semibold rounded-md w-full text">
+                  <button className="btn btn-primary  px-4 py-1 font-semibold rounded-md w-fit text">
                     <Link to="/user/profile">Profile</Link>
                   </button>
-                  <button className=" bg-transparent hover:bg-blue-500 px-4 py-1 font-semibold rounded-md w-full">
+                  <button className="btn btn-secondary px-4 py-1 font-semibold rounded-md w-fit">
                     <Link onClick={handleLogout}>Logout</Link>
                   </button>
                 </div>

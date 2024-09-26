@@ -86,6 +86,8 @@ export const updateProfile = createAsyncThunk(
   "/user/update/profile",
   async (data) => {
     try {
+      console.log(data);
+
       let res = axiosInstance.put(`/user/update/${data[0]}`, data[1]);
 
       toast.promise(res, {
@@ -110,6 +112,14 @@ export const getUserData = createAsyncThunk("/user/details", async () => {
   try {
     const res = axiosInstance.get("/user/me");
     // getting response resolved here
+
+    toast.promise(res, {
+      loading: "getting profile...",
+      success: (data) => {
+        return data?.data?.message;
+      },
+      error: "Failed to get profile",
+    });
     return (await res).data;
   } catch (error) {
     toast.error(error?.message);
