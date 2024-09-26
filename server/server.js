@@ -5,6 +5,7 @@ import connectionToDB from "./config/dbConnection.js";
 import cloudinary from "cloudinary";
 
 import Razorpay from "razorpay";
+const __dirname = path.resolve();
 
 app.use(express.static(path.join(__dirname, "../lms-frontend/build")));
 
