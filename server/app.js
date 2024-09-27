@@ -33,6 +33,13 @@ app.use(
 app.use(cookieParser());
 app.use(morgan("dev"));
 
+// Example environment variables
+app.get("/api/v1/env", (_req, res) => {
+  res.json({
+    apiUrl: process.env.GOOGLE_CLIENT_ID, // Expose necessary env variable
+  });
+});
+
 // app.use('/ping', function(_req, res){
 //     res.send('/pong');
 // })
