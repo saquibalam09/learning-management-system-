@@ -7,7 +7,7 @@ config();
 
 export const isLoggedIn = async (req, _res, next) => {
   const { token } = req.cookies;
-  // console.log("token from auth->", token);
+  console.log("token from auth->", token);
 
   if (!token) {
     return next(new AppError("Unauthenticated, please login again", 401));
