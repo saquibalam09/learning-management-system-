@@ -149,7 +149,7 @@ function Signup() {
               name="fullName"
               id="fullName"
               placeholder="Enter your full name..."
-              className="bg-trasparent px-2 py-1 border"
+              className="bg-transparent px-2 py-1 border"
               onChange={handleUserInput}
               value={signupData.fullName}
             />
@@ -165,7 +165,7 @@ function Signup() {
               name="email"
               id="email"
               placeholder="Enter your email..."
-              className="bg-trasparent px-2 py-1 border"
+              className="bg-transparent px-2 py-1 border"
               onChange={handleUserInput}
               value={signupData.email}
             />
@@ -180,7 +180,7 @@ function Signup() {
               name="password"
               id="password"
               placeholder="Enter your password..."
-              className="bg-trasparent px-2 py-1 border"
+              className="bg-transparent px-2 py-1 border"
               onChange={handleUserInput}
               value={signupData.password}
             />
@@ -197,8 +197,12 @@ function Signup() {
               value={signupData.role}
               className="bg-transparent px-2 py-1 border"
             >
-              <option value="USER">USER</option>
-              <option value="ADMIN">ADMIN</option>
+              <option className="bg-transparent" value="USER">
+                USER
+              </option>
+              <option className="bg-transparent" value="ADMIN">
+                ADMIN
+              </option>
             </select>
           </div>
           <button

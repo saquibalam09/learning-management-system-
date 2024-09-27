@@ -87,7 +87,7 @@ function Login() {
               name="email"
               id="email"
               placeholder="Enter your email..."
-              className="bg-trasparent px-2 py-1 border"
+              className="bg-transparent px-2 py-1 border"
               onChange={handleUserInput}
               value={loginData.email}
             />
@@ -102,7 +102,7 @@ function Login() {
               name="password"
               id="password"
               placeholder="Enter your password..."
-              className="bg-trasparent px-2 py-1 border"
+              className="bg-transparent px-2 py-1 border"
               onChange={handleUserInput}
               value={loginData.password}
             />
