@@ -86,7 +86,7 @@ export const updateProfile = createAsyncThunk(
   "/user/update/profile",
   async (data) => {
     try {
-      console.log(data);
+      // console.log(data);
 
       let res = axiosInstance.put(`/user/update/${data[0]}`, data[1]);
 
@@ -110,6 +110,8 @@ export const updateProfile = createAsyncThunk(
 
 export const getUserData = createAsyncThunk("/user/details", async () => {
   try {
+    console.log("hello world");
+
     const res = axiosInstance.get("/user/me");
     console.log(res);
 
