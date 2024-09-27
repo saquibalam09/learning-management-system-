@@ -18,9 +18,6 @@ const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "../lms-frontend/dist")));
 
 // Handle any requests that don't match the API routes
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../lms-frontend", "dist", "index.html"));
-});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -45,6 +42,9 @@ app.use("/api/v1/courses", courseRoutes);
 app.use("/api/v1/payments", paymentRoutes);
 app.use("/api/v1", miscRoutes);
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../lms-frontend", "dist", "index.html"));
+});
 // routes of 3 modules
 
 app.all("*", (_req, res) => {
