@@ -214,7 +214,7 @@ const logout = (_req, res) => {
 const getProfile = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    console.log(userId);
+    console.log("Hello->", userId);
 
     const user = await User.findById(userId);
 
