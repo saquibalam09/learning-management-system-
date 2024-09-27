@@ -18,6 +18,7 @@ function Signup() {
     email: "",
     password: "",
     avatar: "",
+    role: "", // Capture role data
   });
 
   function handleUserInput(e) {
@@ -48,11 +49,14 @@ function Signup() {
 
   async function createNewAccount(e) {
     e.preventDefault();
+    console.log(signupData);
+
     if (
       !signupData.email ||
       !signupData.password ||
       !signupData.fullName ||
-      !signupData.avatar
+      !signupData.avatar ||
+      !signupData.role
     ) {
       toast.error("Please fill all the details");
       return;
@@ -91,6 +95,7 @@ function Signup() {
     formData.append("email", signupData.email);
     formData.append("password", signupData.password);
     formData.append("avatar", signupData.avatar);
+    formData.append("role", signupData.role);
 
     // dispatch create account action
     const response = await dispatch(createAccount(formData));
@@ -101,6 +106,7 @@ function Signup() {
         email: "",
         password: "",
         avatar: "",
+        role: "",
       });
 
       setPrevImage("");
@@ -178,6 +184,22 @@ function Signup() {
               onChange={handleUserInput}
               value={signupData.password}
             />
+          </div>
+
+          <div className="w-3/4 flex flex-col gap-1">
+            <label htmlFor="role" className="font-semibold">
+              Role
+            </label>
+            <select
+              name="role"
+              id="role"
+              onChange={handleUserInput}
+              value={signupData.role}
+              className="bg-transparent px-2 py-1 border"
+            >
+              <option value="USER">USER</option>
+              <option value="ADMIN">ADMIN</option>
+            </select>
           </div>
           <button
             type="submit"

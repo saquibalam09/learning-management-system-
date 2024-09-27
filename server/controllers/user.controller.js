@@ -96,9 +96,9 @@ const googleRegister = async (req, res, next) => {
 
 const register = async (req, res, next) => {
   try {
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, role } = req.body;
 
-    if (!fullName || !email || !password) {
+    if (!fullName || !email || !password || !role) {
       return next(handleError(res, "All fields are required", 400));
     }
 
@@ -112,6 +112,7 @@ const register = async (req, res, next) => {
       fullName,
       email,
       password,
+      role,
       avatar: {
         public_id: email,
         secure_url: "url",
