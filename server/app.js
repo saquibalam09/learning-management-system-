@@ -15,11 +15,11 @@ const app = express();
 
 const __dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname, "../lms-frontend/build")));
+app.use(express.static(path.join(__dirname, "../lms-frontend/dist")));
 
 // Handle any requests that don't match the API routes
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../lms-frontend/build", "index.html"));
+  res.sendFile(path.join(__dirname, "../lms-frontend", "dist", "index.html"));
 });
 
 app.use(express.json());
