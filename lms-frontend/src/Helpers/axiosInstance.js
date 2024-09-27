@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // const BASE_URL = "http://localhost:5167/api/v1";
-const BASE_URL = "https://backend-lms-flj5.onrender.com/api/v1";
+// const BASE_URL = "https://backend-lms-flj5.onrender.com/api/v1";
+const BASE_URL = "https://learning-management-system-m0ia.onrender.com/api/v1";
 
 // const api = axios.create({
 //   baseURL: BASE_URL,
