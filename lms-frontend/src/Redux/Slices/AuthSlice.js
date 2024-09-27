@@ -111,6 +111,8 @@ export const updateProfile = createAsyncThunk(
 export const getUserData = createAsyncThunk("/user/details", async () => {
   try {
     const res = axiosInstance.get("/user/me");
+    console.log(res);
+
     // getting response resolved here
 
     toast.promise(res, {
